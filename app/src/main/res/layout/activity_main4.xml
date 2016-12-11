@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
+    android:background="#FFFFFF"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    tools:context="com.hlee1159.android.firstquiz.Main4Activity"
+    android:id="@+id/view">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="우수자 단계"
+        android:layout_alignParentTop="true"
+        android:textSize="22sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:textColor="#455A64"
+        android:id="@+id/level" />
+
+    <TextView
+        android:layout_width="25dp"
+        android:layout_height="10dp"
+        android:background="@drawable/level2"
+        android:layout_below="@+id/level"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="3dp"/>
+
+    <TextView
+        android:layout_width="25dp"
+        android:layout_height="10dp"
+        android:background="@drawable/level2"
+        android:layout_below="@+id/level"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="3dp"/>
+
+    <TextView
+    android:layout_width="25dp"
+    android:layout_height="10dp"
+    android:background="@drawable/level2"
+    android:layout_below="@+id/level"
+    android:layout_marginLeft="80dp"
+    android:layout_marginTop="3dp"
+    />
+
+    <TextView
+        android:layout_width="25dp"
+        android:layout_height="10dp"
+        android:background="@drawable/blanklevel2"
+        android:layout_below="@+id/level"
+        android:layout_marginLeft="110dp"
+        android:layout_marginTop="3dp"
+        />
+    <TextView
+        android:layout_width="25dp"
+        android:layout_height="10dp"
+        android:background="@drawable/blanklevel2"
+        android:layout_below="@+id/level"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="3dp"
+        android:id="@+id/levelRectangle"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1/10"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
+        android:textSize="22sp"
+        android:id="@+id/NumberOfQuestions"
+        android:textColor="#455A64"
+        android:layout_alignParentTop="true"/>
+
+
+    <RelativeLayout
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginRight="52dp"
+        android:background="@drawable/check3"
+        android:layout_below="@id/NumberOfQuestions"
+        android:clickable="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/hintLayout3"
+        >
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="?android:attr/borderlessButtonStyle"
+            android:id="@+id/hint1"/>
+        <ImageView
+            android:layout_height="12dp"
+            android:layout_width="12dp"
+            android:background="@drawable/lightbulb"
+            android:scaleType="centerCrop"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/check3"
+        android:layout_below="@id/NumberOfQuestions"
+        android:clickable="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/hintLayout2"
+        >
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="?android:attr/borderlessButtonStyle"
+            android:id="@+id/hint2"/>
+        <ImageView
+            android:layout_height="12dp"
+            android:layout_width="12dp"
+            android:background="@drawable/lightbulb"
+            android:scaleType="centerCrop"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/check3"
+        android:layout_below="@id/NumberOfQuestions"
+        android:clickable="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/hintLayout1"
+        >
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="?android:attr/borderlessButtonStyle"
+            android:id="@+id/hint3"/>
+        <ImageView
+            android:layout_height="12dp"
+            android:layout_width="12dp"
+            android:background="@drawable/lightbulb"
+            android:scaleType="centerCrop"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+    <EditText
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:textSize="40sp"
+        android:id="@+id/AnswerText"
+        android:layout_below="@+id/levelRectangle"
+        android:layout_marginTop="40dp"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:background="@drawable/edittext"
+        android:textCursorDrawable="@drawable/cursor2"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="ㅁㄱㅍ"
+        android:id="@+id/QuestionTextView"
+        style="@style/HeaderTextStyle"
+        android:layout_below="@id/AnswerText"
+        android:layout_marginTop="10dp"
+
+        android:layout_centerHorizontal="true"
+        android:textColor="#212121"/>
+
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:text="헛수고"
+        android:id="@+id/textView"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:layout_below="@+id/QuestionTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="25dp"
+        android:textColor="#727272"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:text="사라지다"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/QuestionTextView"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="25dp"
+        android:textColor="#727272"
+        android:textStyle="bold" />
+
+
+
+
+
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/textView"
+        android:text=""
+        android:textColor="#E64A19"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="4dp"
+        android:textSize="2sp"
+        android:textStyle="bold"
+        android:background="@drawable/border2" />
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:text=""
+        android:gravity="center_horizontal"
+        android:textSize="2sp"
+        android:textColor="#E64A19"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/border2"/>
+
+
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/expert"
+        >
+    </com.google.android.gms.ads.AdView>
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_above="@+id/adView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/AnswerButton"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/check3"
+        android:text="확인"
+        android:textSize="25sp"
+        style="?android:attr/borderlessButtonStyle"/>
+
+
+
+
+
+
+
+
+    <RelativeLayout
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_above="@id/adView"
+        android:layout_toLeftOf="@id/AnswerButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="30dp"
+
+        android:background="@drawable/check3"
+        android:clickable="true"
+        android:id="@+id/backLayout"
+
+        >
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="?android:attr/borderlessButtonStyle"
+            android:id="@+id/back"/>
+        <ImageView
+            android:layout_height="35dp"
+            android:layout_width="35dp"
+            android:background="@drawable/back"
+            android:scaleType="centerCrop"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+
+
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_above="@id/AnswerButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:id="@+id/checkbox"
+        android:layout_marginLeft="50dp"
+        android:background="@drawable/check3"
+        android:visibility="invisible">
+
+        <ImageView
+            android:layout_height="60dp"
+            android:layout_width="60dp"
+            android:background="@drawable/check"
+            android:scaleType="centerCrop"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            style="?android:attr/borderlessButtonStyle"
+
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="70dp"
+        android:text="인어공주"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:id="@+id/textView3"
+        android:layout_above="@id/AnswerButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:textColor="#727272"
+        android:textStyle="bold"
+        android:background="@drawable/hintbox3"
+        android:visibility="invisible"
+        />
+
+    <RelativeLayout
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginRight="32dp"
+        android:id="@+id/hintplusview"
+        android:background="@drawable/check3"
+        android:clickable="true"
+        android:layout_above="@id/AnswerButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+
+        >
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="?android:attr/borderlessButtonStyle"
+            android:id="@+id/hintplus"
+            />
+        <ImageView
+            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:background="@drawable/lightbulb"
+            android:scaleType="centerCrop"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_above="@id/adView"
+        android:layout_toRightOf="@id/AnswerButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/check3"
+        android:layout_marginLeft="30dp"
+        android:clickable="true"
+        android:id="@+id/forwardLayout"
+        >
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="?android:attr/borderlessButtonStyle"
+            android:id="@+id/forward"/>
+        <ImageView
+            android:layout_height="35dp"
+            android:layout_width="35dp"
+            android:background="@drawable/forward"
+            android:scaleType="centerCrop"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>
