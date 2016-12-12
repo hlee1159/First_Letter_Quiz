@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.GestureDetector;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -68,7 +69,8 @@ public class Main2Activity extends GroundActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         String value = getIntent().getExtras().getString(VALUE);
-        Toast.makeText(this, value, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, value, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, value, Toast.LENGTH_LONG).show();
         init();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         mAdView = (AdView) findViewById(R.id.adView);
@@ -147,11 +149,11 @@ public class Main2Activity extends GroundActivity {
 
 
     public void init() {
-        questions = new String[]{"ㅎㄱ", "ㄱㄴ", "ㅇㄷ", "ㄷㅇㅈ", "ㅅㅇㅅ", "ㅇㅇ", "ㅅㅁㄹ", "ㄲㄷ", "ㅇㅈ", "ㅈㅅㄹ"};
-        answers = new String[]{"한강", "그늘", "온달", "단어장", "속임수", "여유", "실마리", "까닭", "억지", "잔소리"};
-        hint1 = new String[]{"기적", "어둠", "바보", "암기", "사기", "남음", "탐정", "원인", "생떼", "자질구레한"};
-        hint2 = new String[]{"괴물", "휴식", "장군", "공책", "꾀", "느긋함", "첫머리", "사정", "고집", "참견"};
-        hint3 = new String[]{"서울", "나무", "평강", "영어", "술수", "~만만", "단서", "이유", "~웃음", "꾸중"};
+        questions = new String[]{"ㅎㅁ", "ㄱㅅ", "ㄱㅎ", "ㄷㅇㅈ", "ㅅㅇㅅ", "ㅇㅇ", "ㅅㅁㄹ", "ㅇㅁ", "ㄴㅊ", "ㅈㅅㄹ"};
+        answers = new String[]{"희망","관상", "기회", "단어장", "속임수", "여유", "실마리", "엉망", "눈치", "잔소리"};
+        hint1 = new String[]{"바람", "얼굴", "절호", "암기", "사기", "남음", "탐정", "뒤죽박죽", "낌새", "자질구레한"};
+        hint2 = new String[]{"꿈","운세", "엿보다", "공책", "꾀", "느긋함", "첫머리", "어수선함", "살피다", "참견"};
+        hint3 = new String[]{"~고문","인상", "찬스", "영어", "술수", "~만만", "단서", "~진창", "~채다", "꾸중"};
         answerList = new ArrayList<Integer>();
         hintplusList = new ArrayList<Integer>();
         answerList.add(0);
@@ -287,6 +289,8 @@ public class Main2Activity extends GroundActivity {
             Toast.makeText(this, "초보자 단계의 모든 문제를 풀어야 다음 단계로 넘어갈 수 있습니다.", Toast.LENGTH_SHORT).show();
             currentQuestion = currentQuestion - 1;
             box.setVisibility(View.VISIBLE);
+            hintplusview.setVisibility(View.GONE);
+            hint3view.setVisibility(View.INVISIBLE);
             return;
         }
 
@@ -431,7 +435,7 @@ public class Main2Activity extends GroundActivity {
     public void checkAnswer() {
         String answer = answerText.getText().toString();
         if (isCorrect(answer))
-            Toast.makeText(this, "정답입니다!", Toast.LENGTH_SHORT).show();
+         Toast.makeText(this,"정답입니다", Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(this, "틀렸습니다.", Toast.LENGTH_SHORT).show();
     }
@@ -481,7 +485,7 @@ public void noMoreHint() {
 }
     public void additionalHint() {
         AlertDialog.Builder endLevel = new AlertDialog.Builder(this);
-        endLevel.setCancelable(false);
+        endLevel.setCancelable(true);
         endLevel.setMessage("추가힌트는 이번 단계에서 총 3개만 사용하실 수 있습니다. 사용하시겠습니까?");
 
         endLevel.setPositiveButton("사용하겠습니다", new DialogInterface.OnClickListener() {
@@ -512,9 +516,3 @@ public void noMoreHint() {
 
     }
 }
-
-
-
-
-
-
