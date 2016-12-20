@@ -56,6 +56,7 @@ public class Main2Activity extends GroundActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         loadBanner();
         loadInterstitial();
+        enableSkip();
     }
 
     @Override
@@ -95,8 +96,8 @@ public class Main2Activity extends GroundActivity {
         hint3 = new ArrayList<String>();
         answerList = new ArrayList<String>();
         hintplusList = new ArrayList<String>();
-        message1 = new String ("축하합니다! 초보자 단계를 통과하셨습니다.");
-        message2 = new String ("우수자 단계에 도전!");
+        message1 = new String ("축하합니다!"+"\n초보자 단계를 통과하셨습니다.");
+        message2 = new String ("유망주 단계에 도전!");
         stage=new String ("level1");
 
         //make array lists of all the answer list, hint plust list, questions and all the hints
@@ -108,7 +109,7 @@ public class Main2Activity extends GroundActivity {
             hint3.add(hint3_list[index]);
         }
 
-        //set current question to be 0
+        //set current question to be 0 "당신은 천재입니다!" + "\n다음엔 더 어렵고 더 재밌는 문제로 찾아뵙겠습니다."
         currentQuestion = 0;
 
 
@@ -245,6 +246,8 @@ public class Main2Activity extends GroundActivity {
 
 
         answersCorrect = (TextView) findViewById(R.id.answersCorrect);
+        answersCorrectImage = (ImageView) findViewById(R.id.answersCorrectImage);
+        answersCorrectButton = (Button) findViewById(R.id.answersCorrectButton);
         hintWord= (RelativeLayout) findViewById(R.id.hintWord);
         back = (Button) findViewById(R.id.back);
         view = (RelativeLayout) findViewById(R.id.view);
@@ -264,6 +267,27 @@ public class Main2Activity extends GroundActivity {
     public void startPreviousLevel() {
         Intent intent1 = new Intent(Main2Activity.this, MainActivity.class);
         startActivity(intent1);
+    }
+
+    //This method enables skip button
+    public void enableSkip(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String level1=preferences.getString("level1", DEFAULT);
+        if (level1!=DEFAULT) {
+            answersCorrect.setText("");
+            answersCorrectImage.setVisibility(View.VISIBLE);
+            //When user presses the fire button, move to next level.
+            answersCorrectButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    endOfTheLevel(message1, message2);
+                }
+
+
+            });
+        }
+
+
     }
 
 }

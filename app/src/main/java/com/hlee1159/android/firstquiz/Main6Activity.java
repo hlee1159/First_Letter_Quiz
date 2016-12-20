@@ -54,6 +54,7 @@ public class Main6Activity extends GroundActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         loadBanner();
         loadInterstitial();
+        enableSkip();
     }
 
     @Override
@@ -81,11 +82,11 @@ public class Main6Activity extends GroundActivity {
     }
 
     public void init() {
-        questions_list = new String[]{"ㅎㅁ", "ㄱㅅ", "ㄱㅎ", "ㄷㅇㅈ", "ㅅㅇㅅ", "ㅇㅇ", "ㅅㅁㄹ", "ㅇㅁ", "ㄴㅊ", "ㅈㅅㄹ"};
-        answers_list = new String[]{"희망", "관상", "기회", "단어장", "속임수", "여유", "실마리", "엉망", "눈치", "잔소리"};
-        hint1_list = new String[]{"바람", "얼굴", "절호", "암기", "사기", "남음", "탐정", "뒤죽박죽", "낌새", "자질구레한"};
-        hint2_list = new String[]{"꿈", "운세", "엿보다", "공책", "꾀", "느긋함", "첫머리", "어수선함", "살피다", "참견"};
-        hint3_list = new String[]{"~고문", "인상", "찬스", "영어", "술수", "~만만", "단서", "~진창", "~채다", "꾸중"};
+        questions_list = new String[]{"ㅂ□□ㄱ", "□□ㅂ", "ㅅㄱ", "ㅇㄱ□ㅇ□ㅈ", "□□ㅋ", "ㅁ□□", "ㅅㅁㅇ", "ㅅㅈ", "ㄸ□ㄱ", "□ㅈ□ㄴ"};
+        answers_list = new String[]{"배꼽시계", "도깨비", "수고", "일거수일투족", "오랑캐", "모퉁이", "속마음", "싫증", "띠동갑", "어제오늘"};
+        hint1_list = new String[]{"식사시간", "방망이", "땀", "동작", "야만", "구부러짐","떠보다", "물리다", "12살", "최근"};
+        hint2_list = new String[]{"배고픔", "뿔", "품", "하나하나", "전쟁","구석", "저울질", "염증", "같다","요사이"};
+        hint3_list = new String[]{"꼬르륵", "귀신", "애를 씀", "일거일동", "이민족", "모서리", "꿍꿍이", "권태", "나이", "내일"};
         questions = new ArrayList<String>();
         answers = new ArrayList<String>();
         hint1 = new ArrayList<String>();
@@ -93,8 +94,8 @@ public class Main6Activity extends GroundActivity {
         hint3 = new ArrayList<String>();
         answerList = new ArrayList<String>();
         hintplusList = new ArrayList<String>();
-        message1 = new String ("축하합니다! 달인 단계를 통과하셨습니다.");
-        message2 = new String ("초인 단계에 도전!");
+        message1 = new String ("당신은 천재입니다!" + "\n다음엔 더 어렵고 더 재밌는 문제로 찾아뵙겠습니다.");
+        message2 = new String ("나가기");
         stage=new String ("level5");
 
         //make array lists of all the answer list, hint plust list, questions and all the hints
@@ -243,6 +244,8 @@ public class Main6Activity extends GroundActivity {
 
 
         answersCorrect = (TextView) findViewById(R.id.answersCorrect);
+        answersCorrectImage = (ImageView) findViewById(R.id.answersCorrectImage);
+        answersCorrectButton = (Button) findViewById(R.id.answersCorrectButton);
         hintWord= (RelativeLayout) findViewById(R.id.hintWord);
         back = (Button) findViewById(R.id.back);
         view = (RelativeLayout) findViewById(R.id.view);
@@ -253,8 +256,10 @@ public class Main6Activity extends GroundActivity {
     //This method starts the next level
     @Override
     public void startNextLevel() {
-        Intent intent2 = new Intent(this, Main7Activity.class);
-        startActivity(intent2);
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     //This method starts the previous level
@@ -262,5 +267,26 @@ public class Main6Activity extends GroundActivity {
     public void startPreviousLevel() {
         Intent intent1 = new Intent(Main6Activity.this, Main5Activity.class);
         startActivity(intent1);
+    }
+
+    //This method enables skip button
+    public void enableSkip(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String level1=preferences.getString("level1", DEFAULT);
+        if (level1!=DEFAULT) {
+            answersCorrect.setText("");
+            answersCorrectImage.setVisibility(View.VISIBLE);
+            //When user presses the fire button, move to next level.
+            answersCorrectButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    endOfTheLevel(message1, message2);
+                }
+
+
+            });
+        }
+
+
     }
 }

@@ -54,6 +54,7 @@ public class Main4Activity extends GroundActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         loadBanner();
         loadInterstitial();
+        enableSkip();
     }
 
     @Override
@@ -81,11 +82,11 @@ public class Main4Activity extends GroundActivity {
     }
 
     public void init() {
-        questions_list = new String[]{"ㅎㅁ", "ㄱㅅ", "ㄱㅎ", "ㄷㅇㅈ", "ㅅㅇㅅ", "ㅇㅇ", "ㅅㅁㄹ", "ㅇㅁ", "ㄴㅊ", "ㅈㅅㄹ"};
-        answers_list = new String[]{"희망", "관상", "기회", "단어장", "속임수", "여유", "실마리", "엉망", "눈치", "잔소리"};
-        hint1_list = new String[]{"바람", "얼굴", "절호", "암기", "사기", "남음", "탐정", "뒤죽박죽", "낌새", "자질구레한"};
-        hint2_list = new String[]{"꿈", "운세", "엿보다", "공책", "꾀", "느긋함", "첫머리", "어수선함", "살피다", "참견"};
-        hint3_list = new String[]{"~고문", "인상", "찬스", "영어", "술수", "~만만", "단서", "~진창", "~채다", "꾸중"};
+        questions_list = new String[]{"ㅁㄱㅍ", "ㅁㅍㅅ", "ㅅㅅㅇ", "ㅍㄴㄱ", "ㄱㄷㄹㅇ", "ㄱㄹ", "ㄴㄷㅇ", "ㅈㅅㄱ", "ㄴㅂㄹ", "ㅁㄱ"};
+        answers_list = new String[]{"물거품", "말풍선", "속삭임", "풋내기", "겨드랑이", "그릇", "나들이", "전성기", "날벼락", "마감"};
+        hint1_list = new String[]{"헛수고", "만화", "소곤소곤", "서투름", "팔", "밥", "김밥","한창", "불호령", "매듭"};
+        hint2_list = new String[]{"사라지다", "대사","은밀히", "햇병아리", "오목한", "비우다","바깥", "정점", "불행", "마무리"};
+        hint3_list = new String[]{"인어공주", "말","속닥속닥", "초보자", "냄새", "설거지", "돗자리", "황금시대", "마른하늘", "기한"};
         questions = new ArrayList<String>();
         answers = new ArrayList<String>();
         hint1 = new ArrayList<String>();
@@ -93,7 +94,7 @@ public class Main4Activity extends GroundActivity {
         hint3 = new ArrayList<String>();
         answerList = new ArrayList<String>();
         hintplusList = new ArrayList<String>();
-        message1 = new String ("축하합니다! 우수자 단계를 통과하셨습니다.");
+        message1 = new String ("축하합니다!"+"\n우수자 단계를 통과하셨습니다.");
         message2 = new String ("영웅 단계에 도전!");
         stage=new String ("level3");
 
@@ -243,6 +244,8 @@ public class Main4Activity extends GroundActivity {
 
 
         answersCorrect = (TextView) findViewById(R.id.answersCorrect);
+        answersCorrectImage = (ImageView) findViewById(R.id.answersCorrectImage);
+        answersCorrectButton = (Button) findViewById(R.id.answersCorrectButton);
         hintWord= (RelativeLayout) findViewById(R.id.hintWord);
         back = (Button) findViewById(R.id.back);
         view = (RelativeLayout) findViewById(R.id.view);
@@ -262,5 +265,26 @@ public class Main4Activity extends GroundActivity {
     public void startPreviousLevel() {
         Intent intent1 = new Intent(Main4Activity.this, Main3Activity.class);
         startActivity(intent1);
+    }
+
+    //This method enables skip button
+    public void enableSkip(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String level1=preferences.getString("level1", DEFAULT);
+        if (level1!=DEFAULT) {
+            answersCorrect.setText("");
+            answersCorrectImage.setVisibility(View.VISIBLE);
+            //When user presses the fire button, move to next level.
+            answersCorrectButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    endOfTheLevel(message1, message2);
+                }
+
+
+            });
+        }
+
+
     }
 }

@@ -1,7 +1,9 @@
 package com.hlee1159.android.firstquiz;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -219,6 +222,8 @@ public class Main7Activity extends GroundActivity {
 
 
         answersCorrect = (TextView) findViewById(R.id.answersCorrect);
+        answersCorrectImage = (ImageView) findViewById(R.id.answersCorrectImage);
+        answersCorrectButton = (Button) findViewById(R.id.answersCorrectButton);
         hintWord= (RelativeLayout) findViewById(R.id.hintWord);
         back = (Button) findViewById(R.id.back);
         view = (RelativeLayout) findViewById(R.id.view);
@@ -240,6 +245,27 @@ public class Main7Activity extends GroundActivity {
     public void startPreviousLevel() {
         Intent intent1 = new Intent(Main7Activity.this, Main6Activity.class);
         startActivity(intent1);
+    }
+
+    //This method enables skip button
+    public void enableSkip(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String level1=preferences.getString("level1", DEFAULT);
+        if (level1!=DEFAULT) {
+            answersCorrect.setText("");
+            answersCorrectImage.setVisibility(View.VISIBLE);
+            //When user presses the fire button, move to next level.
+            answersCorrectButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    endOfTheLevel(message1, message2);
+                }
+
+
+            });
+        }
+
+
     }
 
 }

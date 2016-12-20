@@ -75,6 +75,7 @@ public class GroundActivity extends Activity {
     public RelativeLayout forwardLayout;
     public RelativeLayout backLayout;
     private static Typeface mTypeface = null;
+    public static final String DEFAULT="N/A";
 
     @Override
     public void setContentView(int layoutResID) {
@@ -311,7 +312,8 @@ public class GroundActivity extends Activity {
 
             //if all the answers are correct, end level
             if (answerList.size() >= 10) {
-                answersCorrect.setText(Integer.toString(answerList.size()));
+                answersCorrect.setText("");
+                answersCorrectImage.setVisibility(View.VISIBLE);
                 endOfTheLevel(message1, message2);
                 return;
             }
@@ -409,6 +411,7 @@ public class GroundActivity extends Activity {
         Intent intent1 = new Intent(this, MainActivity.class);
         startActivity(intent1);
     }
+
 
 
 

@@ -49,11 +49,12 @@ public class Main3Activity extends GroundActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_page);
         setStage();
-        Toast.makeText(this, "중급자 등급으로 승급하셨습니다!", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "유망주 등급으로 승급하셨습니다!", Toast.LENGTH_LONG).show();
         init();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         loadBanner();
         loadInterstitial();
+        enableSkip();
     }
 
     @Override
@@ -81,11 +82,11 @@ public class Main3Activity extends GroundActivity {
     }
 
     public void init() {
-        questions_list = new String[]{"ㅎㅁ", "ㄱㅅ", "ㄱㅎ", "ㄷㅇㅈ", "ㅅㅇㅅ", "ㅇㅇ", "ㅅㅁㄹ", "ㅇㅁ", "ㄴㅊ", "ㅈㅅㄹ"};
-        answers_list = new String[]{"희망", "관상", "기회", "단어장", "속임수", "여유", "실마리", "엉망", "눈치", "잔소리"};
-        hint1_list = new String[]{"바람", "얼굴", "절호", "암기", "사기", "남음", "탐정", "뒤죽박죽", "낌새", "자질구레한"};
-        hint2_list = new String[]{"꿈", "운세", "엿보다", "공책", "꾀", "느긋함", "첫머리", "어수선함", "살피다", "참견"};
-        hint3_list = new String[]{"~고문", "인상", "찬스", "영어", "술수", "~만만", "단서", "~진창", "~채다", "꾸중"};
+        questions_list = new String[]{"ㅂㄹ", "ㅈㅅㄱ", "ㄱㄹㄱ", "ㅈㄴ", "ㅈㄱ", "ㅅㄴㅂㄹ", "ㅈㅈㅂㄹ", "ㅇㅈ", "ㅈㅇ", "ㅂㄹㅊㄱ"};
+        answers_list = new String[]{"보람", "잡생각", "겨루기", "장난", "자국", "시나브로", "주전부리", "억지", "조언", "벼락치기"};
+        hint1_list = new String[]{"뜻있다", "상념","승부", "재미", "상처", "조금씩", "먹을거리", "생떼", "도움말", "날림"};
+        hint2_list = new String[]{"만족감", "쓸데없이","다투다", "어린애", "흔적", "사이사이", "심심풀이", "고집", "멘토", "서둘러"};
+        hint3_list = new String[]{"삶의~", "생각", "태권도", "말~", "얼룩", "점차", "간식", "~웃음", "충고", "시험"};
         questions = new ArrayList<String>();
         answers = new ArrayList<String>();
         hint1 = new ArrayList<String>();
@@ -93,7 +94,7 @@ public class Main3Activity extends GroundActivity {
         hint3 = new ArrayList<String>();
         answerList = new ArrayList<String>();
         hintplusList = new ArrayList<String>();
-        message1 = new String ("축하합니다! 중급자 단계를 통과하셨습니다.");
+        message1 = new String ("축하합니다!"+"\n유망주 단계를 통과하셨습니다.");
         message2 = new String ("우수자 단계에 도전!");
         stage=new String ("level2");
 
@@ -243,6 +244,8 @@ public class Main3Activity extends GroundActivity {
 
 
         answersCorrect = (TextView) findViewById(R.id.answersCorrect);
+        answersCorrectImage = (ImageView) findViewById(R.id.answersCorrectImage);
+        answersCorrectButton = (Button) findViewById(R.id.answersCorrectButton);
         hintWord= (RelativeLayout) findViewById(R.id.hintWord);
         back = (Button) findViewById(R.id.back);
         view = (RelativeLayout) findViewById(R.id.view);
@@ -262,5 +265,26 @@ public class Main3Activity extends GroundActivity {
     public void startPreviousLevel() {
         Intent intent1 = new Intent(Main3Activity.this, Main2Activity.class);
         startActivity(intent1);
+    }
+
+    //This method enables skip button
+    public void enableSkip(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String level1=preferences.getString("level1", DEFAULT);
+        if (level1!=DEFAULT) {
+            answersCorrect.setText("");
+            answersCorrectImage.setVisibility(View.VISIBLE);
+            //When user presses the fire button, move to next level.
+            answersCorrectButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    endOfTheLevel(message1, message2);
+                }
+
+
+            });
+        }
+
+
     }
 }

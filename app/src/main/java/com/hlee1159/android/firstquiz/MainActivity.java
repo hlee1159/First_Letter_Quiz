@@ -17,8 +17,6 @@ import android.preference.PreferenceManager;
 public class MainActivity extends GroundActivity {
 
     private Button AnswerButton;
-    public static final String DEFAULT="N/A";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +49,6 @@ public class MainActivity extends GroundActivity {
         Intent intent4 = new Intent(MainActivity.this, Main5Activity.class);
         Intent intent5 = new Intent(MainActivity.this, Main6Activity.class);
         Intent intent6= new Intent(MainActivity.this, Main7Activity.class);
-        if(level5!=DEFAULT){
-            startActivity(intent1);
-        }
-        else {
-
 
             if (level4 != DEFAULT) {
                 startActivity(intent5);
@@ -75,7 +68,7 @@ public class MainActivity extends GroundActivity {
                 }
 
             }
-        }
+
     }
     boolean doubleBackToExitPressedOnce = false;
 
