@@ -270,8 +270,8 @@ public class Main4Activity extends GroundActivity {
     //This method enables skip button
     public void enableSkip(){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String level1=preferences.getString("level1", DEFAULT);
-        if (level1!=DEFAULT) {
+        String level3=preferences.getString("level3", DEFAULT);
+        if (level3!=DEFAULT) {
             answersCorrect.setText("");
             answersCorrectImage.setVisibility(View.VISIBLE);
             //When user presses the fire button, move to next level.

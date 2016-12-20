@@ -33,6 +33,7 @@ public class Main7Activity extends GroundActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         loadBanner();
         loadInterstitial();
+        enableSkip();
     }
 
     @Override
@@ -60,11 +61,11 @@ public class Main7Activity extends GroundActivity {
     }
 
     public void init() {
-        questions_list = new String[]{"ㅎㅁ", "ㄱㅅ", "ㄱㅎ", "ㄷㅇㅈ", "ㅅㅇㅅ", "ㅇㅇ", "ㅅㅁㄹ", "ㅇㅁ", "ㄴㅊ", "ㅈㅅㄹ"};
-        answers_list = new String[]{"희망", "관상", "기회", "단어장", "속임수", "여유", "실마리", "엉망", "눈치", "잔소리"};
-        hint1_list = new String[]{"바람", "얼굴", "절호", "암기", "사기", "남음", "탐정", "뒤죽박죽", "낌새", "자질구레한"};
-        hint2_list = new String[]{"꿈", "운세", "엿보다", "공책", "꾀", "느긋함", "첫머리", "어수선함", "살피다", "참견"};
-        hint3_list = new String[]{"~고문", "인상", "찬스", "영어", "술수", "~만만", "단서", "~진창", "~채다", "꾸중"};
+        questions_list = new String[]{"ㄷㅈ", "ㄱ□ㄱ", "ㅁ□ㅅ", "□ㄱ□ㅈ", "□ㅇㄱ", "ㅇㅎㅇㅊ", "ㅁㄱㅅ", "□ㅂㅇ", "ㅁ□ㅅ", "ㄱㄱㄷ"};
+        answers_list = new String[]{"뒷짐", "곱빼기", "모르쇠", "시간문제", "초읽기", "육하원칙", "물귀신", "판박이", "무리수", "가격대"};
+        hint1_list = new String[]{"구경", "둘", "청문회", "당연한", "바둑", "6개","궁지", "같다", "욕심", "범위"};
+        hint2_list = new String[]{"남", "큰 하나", "기억상실", "결정됨", "급박함","기자", "공멸", "부자", "억지","시장"};
+        hint3_list = new String[]{"~지다", "자장면", "시치미", "ㅅㄱㅁㅈ", "ㅊㅇㄱ", "원칙", "~작전", "ㅍㅂㅇ", "ㅁㄹㅅ", "흥정"};
         questions = new ArrayList<String>();
         answers = new ArrayList<String>();
         hint1 = new ArrayList<String>();
@@ -252,7 +253,7 @@ public class Main7Activity extends GroundActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String level1=preferences.getString("level1", DEFAULT);
         if (level1!=DEFAULT) {
-            answersCorrect.setText("");
+            answersCorrect.setVisibility(View.GONE);
             answersCorrectImage.setVisibility(View.VISIBLE);
             //When user presses the fire button, move to next level.
             answersCorrectButton.setOnClickListener(new View.OnClickListener() {

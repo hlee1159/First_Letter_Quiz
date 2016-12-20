@@ -94,8 +94,8 @@ public class Main6Activity extends GroundActivity {
         hint3 = new ArrayList<String>();
         answerList = new ArrayList<String>();
         hintplusList = new ArrayList<String>();
-        message1 = new String ("당신은 천재입니다!" + "\n다음엔 더 어렵고 더 재밌는 문제로 찾아뵙겠습니다.");
-        message2 = new String ("나가기");
+        message1 = new String ("축하합니다!"+"\n달인 단계를 통과하셨습니다.");
+        message2 = new String ("달인 단계에 도전!");
         stage=new String ("level5");
 
         //make array lists of all the answer list, hint plust list, questions and all the hints
@@ -256,10 +256,8 @@ public class Main6Activity extends GroundActivity {
     //This method starts the next level
     @Override
     public void startNextLevel() {
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        Intent intent2 = new Intent(this, Main7Activity.class);
+        startActivity(intent2);
     }
 
     //This method starts the previous level
@@ -272,8 +270,8 @@ public class Main6Activity extends GroundActivity {
     //This method enables skip button
     public void enableSkip(){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String level1=preferences.getString("level1", DEFAULT);
-        if (level1!=DEFAULT) {
+        String level5=preferences.getString("level5", DEFAULT);
+        if (level5!=DEFAULT) {
             answersCorrect.setText("");
             answersCorrectImage.setVisibility(View.VISIBLE);
             //When user presses the fire button, move to next level.
