@@ -368,5 +368,49 @@ public class GroundActivity extends Activity {
     }
 
 
+    //This method tells the user what to do when back button is pressed
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setMessage("게임을 종료하시겠습니까?");
+        builder.setPositiveButton("이전 단계로 돌아가기", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user pressed "yes", then he is allowed to exit from application
+                startPreviousLevel();
+
+            }
+        });
+        builder.setNeutralButton("네", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user pressed "yes", then he is allowed to exit from application
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(intent);
+            }
+        });
+
+        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user select "No", just cancel this dialog and continue with app
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    //This method starts previous level
+    public void startPreviousLevel() {
+        Intent intent1 = new Intent(this, MainActivity.class);
+        startActivity(intent1);
+    }
+
+
+
 
 }

@@ -30,7 +30,6 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.server.converter.StringToIntConverter;
 import android.content.Context;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -201,84 +200,48 @@ public class Main2Activity extends GroundActivity {
         });
     }
 
-    //This method tells the user what to do when back button is pressed
-    @Override
-    public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(false);
-        builder.setMessage("게임을 종료하시겠습니까?");
-        builder.setPositiveButton("첫 화면으로 돌아가기", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //if user pressed "yes", then he is allowed to exit from application
-                Intent intent1 = new Intent(Main2Activity.this, MainActivity.class);
-                startActivity(intent1);
-            }
-        });
-        builder.setNeutralButton("네", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //if user pressed "yes", then he is allowed to exit from application
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_HOME);
-                startActivity(intent);
-            }
-        });
-
-        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //if user select "No", just cancel this dialog and continue with app
-                dialog.cancel();
-            }
-        });
-
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
     public void setStage() {
 
         level=(TextView) findViewById(R.id.level);
-        level.setTextColor(getResources().getColor(R.color.bluegrey));
+        level.setTextColor(getResources().getColor(R.color.teal));
         level.setText("초보자 단계");
 
         answersCorrectLayout= (RelativeLayout) findViewById(R.id.answersCorrectLayout);
-        answersCorrectLayout.setBackgroundResource(R.drawable.check6);
+        answersCorrectLayout.setBackgroundResource(R.drawable.check1);
 
         answerText = (EditText) findViewById(R.id.AnswerText);
-        answerText.setBackgroundResource(R.drawable.edittext6);
+        answerText.setBackgroundResource(R.drawable.edittext1);
 
         questionView = (TextView) findViewById(R.id.QuestionTextView);
 
         wordbox = (RelativeLayout) findViewById(R.id.wordbox);
-        wordbox.setBackgroundResource(R.drawable.hintbox6);
+        wordbox.setBackgroundResource(R.drawable.hintbox1);
 
         hint1View = (TextView) findViewById(R.id.textView);
         textBar1 = (TextView) findViewById(R.id.textbar1);
-        textBar1.setBackgroundResource(R.drawable.border6);
+        textBar1.setBackgroundResource(R.drawable.border1);
 
         hint2View = (TextView) findViewById(R.id.textView2);
         textBar2 = (TextView) findViewById(R.id.textbar2);
-        textBar2.setBackgroundResource(R.drawable.border6);
+        textBar2.setBackgroundResource(R.drawable.border1);
 
         box = (RelativeLayout) findViewById(R.id.checkbox);
-        box.setBackgroundResource(R.drawable.check6);
+        box.setBackgroundResource(R.drawable.check1);
 
         hint3view = (TextView) findViewById(R.id.textView3);
-        hint3view.setBackgroundResource(R.drawable.hintbox6);
+        hint3view.setBackgroundResource(R.drawable.hintbox1);
 
         hintplusview = (RelativeLayout) findViewById(R.id.hintplusview);
-        hintplusview.setBackgroundResource(R.drawable.check6);
+        hintplusview.setBackgroundResource(R.drawable.check1);
 
         answerButton = (Button) findViewById(R.id.AnswerButton);
-        answerButton.setBackgroundResource(R.drawable.check6);
+        answerButton.setBackgroundResource(R.drawable.check1);
 
         forwardLayout=(RelativeLayout) findViewById(R.id.forwardLayout);
-        forwardLayout.setBackgroundResource(R.drawable.check6);
+        forwardLayout.setBackgroundResource(R.drawable.check1);
 
         backLayout=(RelativeLayout) findViewById((R.id.backLayout));
-        backLayout.setBackgroundResource(R.drawable.check6);
+        backLayout.setBackgroundResource(R.drawable.check1);
 
 
         answersCorrect = (TextView) findViewById(R.id.answersCorrect);
@@ -294,6 +257,13 @@ public class Main2Activity extends GroundActivity {
     public void startNextLevel() {
         Intent intent2 = new Intent(this, Main3Activity.class);
         startActivity(intent2);
+    }
+
+    //This method starts the previous level
+    @Override
+    public void startPreviousLevel() {
+        Intent intent1 = new Intent(Main2Activity.this, MainActivity.class);
+        startActivity(intent1);
     }
 
 }
