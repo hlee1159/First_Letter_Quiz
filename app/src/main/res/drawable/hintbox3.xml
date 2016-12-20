@@ -2,7 +2,7 @@
     android:shape="rectangle">
 
     <stroke android:width="2dp"
-        android:color="#455A64"
+        android:color="@color/indigo"
         android:dashWidth="15px"
         android:dashGap="10px"
         />

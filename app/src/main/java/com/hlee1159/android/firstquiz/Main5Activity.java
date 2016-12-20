@@ -1,46 +1,64 @@
 package com.hlee1159.android.firstquiz;
 
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.text.InputFilter;
+import android.view.GestureDetector;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.app.AlertDialog;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import java.util.ArrayList;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.common.server.converter.StringToIntConverter;
 import android.content.Context;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.KeyEvent;
+import android.view.View.OnKeyListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import android.preference.PreferenceManager;
+
 
 
 public class Main5Activity extends GroundActivity {
-    private static String VALUESECOND = "myValue";
+    //Declaring all the variables needed
     private int currentQuestion;
-    private String [] questions;
-    private String [] answers;
-    private String [] hint1;
-    private String[] hint2;
-    private String[] hint3;
+    private ArrayList<String> questions;
+    private ArrayList<String> answers;
+    private ArrayList<String> hint1;
+    private ArrayList<String> hint2;
+    private ArrayList<String> hint3;
+    private ArrayList<String> answerList;
+    private ArrayList<String> hintplusList;
     private TextView hint1View;
     private TextView hint2View;
+    private TextView answersCorrect;
     private Button answerButton;
     private TextView questionView;
     private EditText answerText;
-    private TextView numberOfQuestionsLeft;
     private AdView mAdView;
-    private ArrayList<Integer> answerList;
     private RelativeLayout box;
     private Button back;
     private Button forward;
@@ -48,22 +66,27 @@ public class Main5Activity extends GroundActivity {
     private Button hintplus;
     private TextView hint3view;
     private RelativeLayout hintplusview;
-    private ArrayList<Integer> hintplusList;
-    private RelativeLayout hintlayout1;
-    private RelativeLayout hintlayout2;
-    private RelativeLayout hintlayout3;
+    private String [] questions_list;
+    private String [] answers_list;
+    private String [] hint1_list;
+    private String[] hint2_list;
+    private String[] hint3_list;
+    private InterstitialAd mInterstitial;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main5);
-        String value = getIntent().getExtras().getString(VALUESECOND);
         Toast.makeText(this, "영웅 등급으로 승급하셨습니다!", Toast.LENGTH_LONG).show();
         init();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().addTestDevice("53A5F3593D943AF2D44924D08C75E278").build();
+        // Check the LogCat to get your test device ID
+
         mAdView.loadAd(adRequest);
+        loadInterstitial();
     }
 
     @Override
@@ -89,27 +112,31 @@ public class Main5Activity extends GroundActivity {
         }
         super.onDestroy();
     }
+
+    //This method tells the user what to do when back button is pressed
     @Override
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false);
         builder.setMessage("게임을 종료하시겠습니까?");
-        builder.setPositiveButton("우수자 단계로 돌아가기", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("이전 단계로 돌아가기", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //if user pressed "yes", then he is allowed to exit from application
-                finish();
+                Intent intent1 = new Intent(Main5Activity.this, Main4Activity.class);
+                startActivity(intent1);
             }
         });
         builder.setNeutralButton("네", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                //if user pressed "yes", then he is allowed to exit from application
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
-
                 startActivity(intent);
             }
         });
+
         builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -117,44 +144,43 @@ public class Main5Activity extends GroundActivity {
                 dialog.cancel();
             }
         });
+
         AlertDialog alert = builder.create();
         alert.show();
     }
 
 
+    //This method hides the keyboard
     public void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+
     public void init() {
-        questions = new String[]{"ㅅㄱ", "ㅅㅍㄱ", "", "ㅁ□ㄱ□", "", "", "□ㅅㄱ", "ㅁ□ㄱ", "", ""};
-        answers = new String[]{"손금", "상품권", "", "마수걸이", "오랑캐", "날벼락", "전성기", "맛보기", "띠동갑", ""};
-        hint1 = new String[]{"점쟁이", "교환", "", "처음", "야만", "불호령","한창", "시험 삼아", "12살", ""};
-        hint2 = new String[]{"줄무늬", "선물", "", "", "난","불행", "정점", "조금", "같다", ""};
-        hint3 = new String[]{"손바닥", "", "", "~ 홈런", "부자", "시험", "돗자리", "이유", "부위", ""};
-        answerList= new ArrayList<Integer>();
-        hintplusList = new ArrayList<Integer>();
-        answerList.add(0);
-        answerList.add(1);
-        answerList.add(2);
-        answerList.add(3);
-        answerList.add(4);
-        answerList.add(5);
-        answerList.add(6);
-        answerList.add(7);
-        answerList.add(8);
-        answerList.add(9);
-        hintplusList.add(0);
-        hintplusList.add(1);
-        hintplusList.add(2);
-        hintplusList.add(3);
-        hintplusList.add(4);
-        hintplusList.add(5);
-        hintplusList.add(6);
-        hintplusList.add(7);
-        hintplusList.add(8);
-        hintplusList.add(9);
+        questions_list = new String[]{"ㄷ□ㅇ", "ㅅㅍㄱ", "ㄱㄴ", "ㅁㅆ", "ㄱㅂ", "ㅈㅁ□□", "ㅈㅅ", "ㅁ□ㄱ", "ㅈ□ㅅ", "ㅂㄹ"};
+        answers_list = new String[]{"됨됨이", "상품권", "그늘", "말썽", "고비", "주먹구구", "질서", "맛보기", "조바심", "버릇"};
+        hint1_list = new String[]{"사람", "교환", "어둠", "골칫거리", "고개", "대충","정리", "시험 삼아", "애", "반복"};
+        hint2_list = new String[]{"인품", "선물", "휴식", "물의", "위기","어림짐작", "차례", "조금", "안달복달", "굳다"};
+        hint3_list = new String[]{"사람됨", "백화점", "나무", "~꾸러기", "넘기다", "~식", "~의식", "시식", "조마조마", "습관"};
+        questions= new ArrayList<String>();
+        answers = new ArrayList<String>();
+        hint1= new ArrayList<String>();
+        hint2 = new ArrayList<String>();
+        hint3 =new ArrayList<String>();
+        answerList= new ArrayList<String>();
+        hintplusList = new ArrayList<String>();
+
+        //make array lists of all the answer list, hint plust list, questions and all the hints
+        for(int index = 0; index<10; index++){
+            questions.add(questions_list[index]);
+            answers.add(answers_list[index]);
+            hint1.add(hint1_list[index]);
+            hint2.add(hint2_list[index]);
+            hint3.add(hint3_list[index]);
+        }
+
+        //set current question to be 0
         currentQuestion = 0;
 
 
@@ -164,33 +190,43 @@ public class Main5Activity extends GroundActivity {
         hint1View = (TextView) findViewById(R.id.textView);
         hint2View = (TextView) findViewById(R.id.textView2);
         hint3view = (TextView) findViewById(R.id.textView3);
-        numberOfQuestionsLeft = (TextView) findViewById(R.id.NumberOfQuestions);
+        answersCorrect = (TextView) findViewById(R.id.answersCorrect);
         box = (RelativeLayout) findViewById(R.id.checkbox);
         back = (Button) findViewById(R.id.back);
         view = (RelativeLayout) findViewById(R.id.view);
         forward = (Button) findViewById(R.id.forward);
         hintplus = (Button) findViewById(R.id.hintplus);
         hintplusview = (RelativeLayout) findViewById(R.id.hintplusview);
-        hintlayout1 = (RelativeLayout) findViewById(R.id.hintLayout1);
-        hintlayout2 = (RelativeLayout) findViewById(R.id.hintLayout2);
-        hintlayout3 = (RelativeLayout) findViewById(R.id.hintLayout3);
+
+        showQuestion();
 
 
+        //When user presses enter in the keyboard, the app will perform checkAnswer
+        answerText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    hideKeyboard(view);
+                    checkAnswer();
+                    handled = true;
+                }
+                return handled;
+            }
+        });
 
+
+        //When user presses the answer button, check if the answer is right.
         answerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkAnswer();
-                String answer = answerText.getText().toString();
-                if (isCorrect(answer)) {
-                    answerList.remove((Integer) currentQuestion);
-                    showQuestion();
-                }
             }
 
 
         });
 
+        //When user presses forward, move to next question
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,6 +236,7 @@ public class Main5Activity extends GroundActivity {
 
         });
 
+        //When user presses back, move to previous question
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,20 +244,17 @@ public class Main5Activity extends GroundActivity {
             }
         });
 
+        //When user presses hint button, show the additional hint
         hintplus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (hintplusList.size() > 7)
-                    additionalHint();
-                else
-                    noMoreHint();
-
-
+                additionalHint();
             }
 
         });
 
 
+        //When the user swipes the screen left to right, move to next question or previous question.
         view.setOnTouchListener(new OnSwipeTouchListener(Main5Activity.this) {
 
             @Override
@@ -240,6 +274,8 @@ public class Main5Activity extends GroundActivity {
                 return super.onTouch(v, event);
             }
         });
+
+        //If user touches not-keyboard part of the screen, hide the keyboard
         answerText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -250,80 +286,64 @@ public class Main5Activity extends GroundActivity {
         });
     }
 
+    //This method manipulates the light bulb box so that it makes the right box visible at the right moment
+    public void manipulateBox() {
+        // if the user got the answer right, make the check box visible and everything else invisible
+        if (answerList.contains(questions.get(currentQuestion)))
+        { box.setVisibility(View.VISIBLE);
+            hintplusview.setVisibility(View.GONE);
+            hint3view.setVisibility(View.INVISIBLE);}
 
-    /*
-    this method
-    1: increment currentQuestion index
-    2: check if it is equal to the size of the array and rest if necessary
-    3: display the question at currentQuestion index in question view
-    4: Empty answer view
-     */
+        else {
+            // if the user used the additional hint, make the hint visible
+            if (hintplusList.contains(questions.get(currentQuestion))) {
+                box.setVisibility(View.INVISIBLE);
+                hintplusview.setVisibility(View.GONE);
+                hint3view.setVisibility(View.VISIBLE);
+            }
+
+            // if the user did not get the question right and did not view the addtional hint, just show the light bulb
+            if (!hintplusList.contains(questions.get(currentQuestion))) {
+                box.setVisibility(View.INVISIBLE);
+                hintplusview.setVisibility(View.VISIBLE);
+                hint3view.setVisibility(View.INVISIBLE);
+            }
+        }
+    }
+
+    //This method shows the question the user has to solve
     public void showQuestion() {
-        if (answerList.isEmpty()) {
-            endOfTheLevel();
-            return;
-        }
-        currentQuestion++;
-        if (currentQuestion == questions.length) {
-            Toast.makeText(this, "영웅 단계의 모든 문제를 풀어야 다음 단계로 넘어갈 수 있습니다.", Toast.LENGTH_SHORT).show();
-            currentQuestion = currentQuestion - 1;
-            box.setVisibility(View.VISIBLE);
-            return;
-        }
-
-        if (!answerList.contains(currentQuestion))
-        { box.setVisibility(View.VISIBLE);
-            hintplusview.setVisibility(View.GONE);
-            hint3view.setVisibility(View.INVISIBLE);}
-        if (!hintplusList.contains(currentQuestion)&& answerList.contains(currentQuestion))
-        { box.setVisibility(View.INVISIBLE);
-            hintplusview.setVisibility(View.GONE);
-            hint3view.setVisibility(View.VISIBLE);}
-        if (answerList.contains(currentQuestion) &&hintplusList.contains(currentQuestion)){box.setVisibility(View.INVISIBLE); hintplusview.setVisibility(View.VISIBLE);hint3view.setVisibility(View.INVISIBLE);}
-        if (!answerList.contains(currentQuestion) &&!hintplusList.contains(currentQuestion))
-        { box.setVisibility(View.VISIBLE);
-            hintplusview.setVisibility(View.GONE);
-            hint3view.setVisibility(View.INVISIBLE);}
-
-        questionView.setText(questions[currentQuestion]);
-        hint1View.setText(hint1[currentQuestion]);
-        hint2View.setText(hint2[currentQuestion]);
-        hint3view.setText(hint3[currentQuestion]);
+        questionView.setText(questions.get(currentQuestion));
+        hint1View.setText(hint1.get(currentQuestion));
+        hint2View.setText(hint2.get(currentQuestion));
+        hint3view.setText(hint3.get(currentQuestion));
         answerText.setText("");
-        numberOfQuestionsLeft.setText(currentQuestion + 1 + "/10");
+        manipulateBox();
 
     }
 
+    //This method shows the next question
     public void nextQuestion() {
         currentQuestion++;
-        if (currentQuestion == questions.length) {
+
+        if (currentQuestion == questions.size()) {
             Toast.makeText(this, "영웅 단계의 모든 문제를 풀어야 다음 단계로 넘어갈 수 있습니다.", Toast.LENGTH_SHORT).show();
             currentQuestion = currentQuestion - 1;
             return;
         }
+        manipulateBox();
+        showQuestion();
+    }
 
-        if (!answerList.contains(currentQuestion))
-        { box.setVisibility(View.VISIBLE);
-            hintplusview.setVisibility(View.GONE);
-            hint3view.setVisibility(View.INVISIBLE);}
-        if (!hintplusList.contains(currentQuestion)&& answerList.contains(currentQuestion))
-        { box.setVisibility(View.INVISIBLE);
-            hintplusview.setVisibility(View.GONE);
-            hint3view.setVisibility(View.VISIBLE);}
-        if (answerList.contains(currentQuestion) &&hintplusList.contains(currentQuestion)){box.setVisibility(View.INVISIBLE); hintplusview.setVisibility(View.VISIBLE);hint3view.setVisibility(View.INVISIBLE);}
-        if (!answerList.contains(currentQuestion) &&!hintplusList.contains(currentQuestion))
-        { box.setVisibility(View.VISIBLE);
-            hintplusview.setVisibility(View.GONE);
-            hint3view.setVisibility(View.INVISIBLE);}
-
-
-        questionView.setText(questions[currentQuestion]);
-        hint1View.setText(hint1[currentQuestion]);
-        hint2View.setText(hint2[currentQuestion]);
-        hint3view.setText(hint3[currentQuestion]);
-        answerText.setText("");
-        numberOfQuestionsLeft.setText(currentQuestion + 1 + "/10");
-
+    //This method shows the previous question
+    public void pastQuestion() {
+        if (currentQuestion == 0) {
+            Toast.makeText(this, "이전 단계로 돌아가시려면 '뒤로' 버튼을 눌러주십시오.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        currentQuestion=currentQuestion-1;
+        manipulateBox();
+        showQuestion();
     }
 
     /**
@@ -373,56 +393,62 @@ public class Main5Activity extends GroundActivity {
         }
     }
 
-    public void pastQuestion() {
-        if (currentQuestion == 0) {
-            Toast.makeText(this, "이전 단계로 돌아가시려면 '뒤로' 버튼을 눌러주십시오.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        currentQuestion = currentQuestion - 1;
-        if (!answerList.contains(currentQuestion))
-        { box.setVisibility(View.VISIBLE);
-            hintplusview.setVisibility(View.GONE);
-            hint3view.setVisibility(View.INVISIBLE);}
-        if (!hintplusList.contains(currentQuestion) && answerList.contains(currentQuestion))
-        { box.setVisibility(View.INVISIBLE);
-            hintplusview.setVisibility(View.GONE);
-            hint3view.setVisibility(View.VISIBLE);}
-        if (answerList.contains(currentQuestion) &&hintplusList.contains(currentQuestion)){box.setVisibility(View.INVISIBLE); hintplusview.setVisibility(View.VISIBLE);hint3view.setVisibility(View.INVISIBLE);}
-        if (!answerList.contains(currentQuestion) &&!hintplusList.contains(currentQuestion))
-        { box.setVisibility(View.VISIBLE);
-            hintplusview.setVisibility(View.GONE);
-            hint3view.setVisibility(View.INVISIBLE);}
-
-        questionView.setText(questions[currentQuestion]);
-        hint1View.setText(hint1[currentQuestion]);
-        hint2View.setText(hint2[currentQuestion]);
-        hint3view.setText(hint3[currentQuestion]);
-        answerText.setText("");
-        numberOfQuestionsLeft.setText(currentQuestion + 1 + "/10");
-    }
-
-    /*
-    This method returns true if the answer equals to correct answer
-
-     */
+    //This method returns true if the answer equals to correct answer
     public boolean isCorrect(String answer) {
-        return (answer.equalsIgnoreCase(answers[currentQuestion]));
+        return (answer.equalsIgnoreCase(answers.get(currentQuestion)));
     }
 
+
+    //This method checks the answer and updates the answer list
     public void checkAnswer() {
         String answer = answerText.getText().toString();
-        if (isCorrect(answer))
-            Toast.makeText(this, "정답입니다!", Toast.LENGTH_SHORT).show();
+        if (isCorrect(answer)) {
+            Toast.makeText(this, "정답입니다", Toast.LENGTH_SHORT).show();
+            save();
+
+            // if the answer is correct update the answer list
+            answerList.add(0, questions.get(currentQuestion));
+
+            //If the answer is correct, move the question to the very front and display the questions yet to be solved.
+
+            questions.add(0, questions.get(currentQuestion));
+            questions.remove(currentQuestion + 1);
+            answers.add(0, answers.get(currentQuestion));
+            answers.remove(currentQuestion + 1);
+            hint1.add(0, hint1.get(currentQuestion));
+            hint1.remove(currentQuestion + 1);
+            hint2.add(0, hint2.get(currentQuestion));
+            hint2.remove(currentQuestion + 1);
+            hint3.add(0, hint3.get(currentQuestion));
+            hint3.remove(currentQuestion + 1);
+
+            //if the answer is correct update the number of questions correct
+            if (answerList.size()<10){
+                answersCorrect.setText(Integer.toString(answerList.size()));}
+
+            //if all the answers are correct, end level
+            if (answerList.size()>=10){
+                answersCorrect.setText(Integer.toString(answerList.size()));
+                endOfTheLevel();
+                return;}
+            //if the user solves the last question first, show the previous question
+            if (currentQuestion==9)
+                showQuestion();
+            //if none of the above, show next question
+            if (currentQuestion!=9)
+                nextQuestion();
+        }
         else
             Toast.makeText(this, "틀렸습니다.", Toast.LENGTH_SHORT).show();
     }
 
+    //This method starts the next level
     public void startNextLevel() {
-        Intent intent2 = new Intent(this, Main6Activity.class);
-        intent2.putExtra(VALUESECOND, "가능성이 있습니다");
-        startActivity(intent2);
+        Intent intent = new Intent(this, Main6Activity.class);
+        startActivity(intent);
     }
 
+    //This method asks the user what to do when the level is ended
     public void endOfTheLevel() {
         AlertDialog.Builder endLevel = new AlertDialog.Builder(this);
         endLevel.setCancelable(false);
@@ -431,24 +457,25 @@ public class Main5Activity extends GroundActivity {
         endLevel.setPositiveButton("초인 단계에 도전!", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                answerList.add(0);
-                answerList.add(1);
-                answerList.add(2);
-                answerList.add(3);
-                answerList.add(4);
-                answerList.add(5);
-                answerList.add(6);
-                answerList.add(7);
-                answerList.add(8);
-                answerList.add(9);
+                showInterstitial();
                 answerText.setText("");
-                startNextLevel();
+                save();
+                mInterstitial.setAdListener(new AdListener() {
+                    @Override
+                    public void onAdClosed() {
+                        startNextLevel();
+                    }
+                });
+                if (!mInterstitial.isLoaded()) {
+                    startNextLevel();
+                }
             }
         });
         endLevel.setNegativeButton("이 페이지에 머무르기", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //if user select "No", just cancel this dialog and continue with app
+                showQuestion();
                 dialog.cancel();
             }
         });
@@ -456,29 +483,19 @@ public class Main5Activity extends GroundActivity {
         alert.show();
     }
 
-    public void noMoreHint() {
-        Toast.makeText(this, "3개의 추가힌트를 모두 사용하셨습니다.", Toast.LENGTH_SHORT).show();
-        return;
-    }
+    //This method asks the user whether he or she will view the additional hint by watching a video ad
     public void additionalHint() {
         AlertDialog.Builder endLevel = new AlertDialog.Builder(this);
-        endLevel.setCancelable(false);
-        endLevel.setMessage("추가힌트는 이번 단계에서 총 3개만 사용하실 수 있습니다. 사용하시겠습니까?");
+        endLevel.setCancelable(true);
+        endLevel.setMessage("추가힌트를 사용하시겠습니까?");
 
         endLevel.setPositiveButton("사용하겠습니다", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 hintplusview.setVisibility(View.GONE);
                 hint3view.setVisibility(View.VISIBLE);
+                hintplusList.add(0, questions.get(currentQuestion));
 
-                hintplusList.remove((Integer) currentQuestion);
-                int size = hintplusList.size();
-                if (size==9)
-                    hintlayout3.setVisibility(View.INVISIBLE);
-                if (size==8)
-                    hintlayout2.setVisibility(View.INVISIBLE);
-                if (size==7)
-                    hintlayout1.setVisibility(View.INVISIBLE);
             }
         });
         endLevel.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
@@ -491,5 +508,27 @@ public class Main5Activity extends GroundActivity {
         AlertDialog alert = endLevel.create();
         alert.show();
 
+    }
+
+    //This method stores the value "passed" to the shared preferences
+    public void save(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("level4","passed");
+        editor.apply();
+    }
+
+    public void loadInterstitial() {
+        mInterstitial = new InterstitialAd(this);
+        mInterstitial.setAdUnitId("ca-app-pub-7941816792723862/8366941438");
+        AdRequest adrequest = new AdRequest.Builder().addTestDevice("53A5F3593D943AF2D44924D08C75E278").build();
+        // Check the LogCat to get your test device ID
+        mInterstitial.loadAd(adrequest);
+
+    }
+    public void showInterstitial() {
+        if (mInterstitial.isLoaded()) {
+            mInterstitial.show();
+        }
     }
 }
