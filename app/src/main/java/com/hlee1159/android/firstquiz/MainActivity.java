@@ -35,40 +35,78 @@ public class MainActivity extends GroundActivity {
             }
        });
     }
-    public void startNewActivity(){
+    public void startNewActivity() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String level1=preferences.getString("level1", DEFAULT);
-        String level2=preferences.getString("level2", DEFAULT);
-        String level3=preferences.getString("level3", DEFAULT);
-        String level4=preferences.getString("level4", DEFAULT);
-        String level5=preferences.getString("level5", DEFAULT);
+        String level1 = preferences.getString("level1", DEFAULT);
+        String level2 = preferences.getString("level2", DEFAULT);
+        String level3 = preferences.getString("level3", DEFAULT);
+        String level4 = preferences.getString("level4", DEFAULT);
+        String level5 = preferences.getString("level5", DEFAULT);
+        String level6 = preferences.getString("level6", DEFAULT);
+        String level7 = preferences.getString("level7", DEFAULT);
+        String level8 = preferences.getString("level8", DEFAULT);
+        String level9 = preferences.getString("level9", DEFAULT);
+        String level10 = preferences.getString("level10", DEFAULT);
+        String level11 = preferences.getString("level11", DEFAULT);
+        String level12 = preferences.getString("level12", DEFAULT);
 
-        Intent intent1 = new Intent(MainActivity.this, Main2Activity.class);
-        Intent intent2 = new Intent(MainActivity.this, Main3Activity.class);
-        Intent intent3 = new Intent(MainActivity.this, Main4Activity.class);
-        Intent intent4 = new Intent(MainActivity.this, Main5Activity.class);
-        Intent intent5 = new Intent(MainActivity.this, Main6Activity.class);
-        Intent intent6= new Intent(MainActivity.this, Main7Activity.class);
-
-            if (level4 != DEFAULT) {
-                startActivity(intent5);
+        Intent intent1 = new Intent(MainActivity.this, Main1Activity.class);
+        Intent intent2 = new Intent(MainActivity.this, Main2Activity.class);
+        Intent intent3 = new Intent(MainActivity.this, Main3Activity.class);
+        Intent intent4 = new Intent(MainActivity.this, Main4Activity.class);
+        Intent intent5 = new Intent(MainActivity.this, Main5Activity.class);
+        Intent intent6 = new Intent(MainActivity.this, Main6Activity.class);
+        Intent intent7 = new Intent(MainActivity.this, Main7Activity.class);
+        Intent intent8 = new Intent(MainActivity.this, Main8Activity.class);
+        Intent intent9 = new Intent(MainActivity.this, Main9Activity.class);
+        Intent intent10 = new Intent(MainActivity.this, Main10Activity.class);
+        Intent intent11 = new Intent(MainActivity.this, Main11Activity.class);
+        Intent intent12 = new Intent(MainActivity.this, Main12Activity.class);
+        if (level11 != DEFAULT) {
+            startActivity(intent9);
+        } else {
+            if (level10 != DEFAULT) {
+                startActivity(intent9);
             } else {
-                if (level3 != DEFAULT) {
-                    startActivity(intent4);
+                if (level9 != DEFAULT) {
+                    startActivity(intent9);
                 } else {
-                    if (level2 != DEFAULT) {
-                        startActivity(intent3);
+                    if (level8 != DEFAULT) {
+                        startActivity(intent9);
                     } else {
-                        if (level1 != DEFAULT) {
-                            startActivity(intent2);
+                        if (level7 != DEFAULT) {
+                            startActivity(intent8);
                         } else {
-                            startActivity(intent1);
+                            if (level6 != DEFAULT) {
+                                startActivity(intent7);
+                            } else {
+                                if (level5 != DEFAULT) {
+                                    startActivity(intent6);
+                                } else {
+                                    if (level4 != DEFAULT) {
+                                        startActivity(intent5);
+                                    } else {
+                                        if (level3 != DEFAULT) {
+                                            startActivity(intent4);
+                                        } else {
+                                            if (level2 != DEFAULT) {
+                                                startActivity(intent3);
+                                            } else {
+                                                if (level1 != DEFAULT) {
+                                                    startActivity(intent2);
+                                                } else {
+                                                    startActivity(intent1);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
-
             }
-
+        }
     }
     boolean doubleBackToExitPressedOnce = false;
 

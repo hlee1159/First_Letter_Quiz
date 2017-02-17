@@ -23,8 +23,20 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
-
 import java.util.ArrayList;
+import java.util.HashSet;
+
+import com.google.ads.mediation.admob.AdMobAdapter;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.jirbo.adcolony.AdColony;
+import com.jirbo.adcolony.AdColonyAdapter;
+import com.jirbo.adcolony.AdColonyBundleBuilder;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by Hyoung Jun on 2016-02-26.
@@ -39,7 +51,7 @@ public class GroundActivity extends Activity {
     public ArrayList<String> hint1;
     public ArrayList<String> hint2;
     public ArrayList<String> hint3;
-    public ArrayList<String> answerList;
+    public HashSet <String> answerList;
     public ArrayList<String> hintplusList;
     public TextView hint1View;
     public TextView hint2View;
@@ -74,6 +86,8 @@ public class GroundActivity extends Activity {
     public RelativeLayout hintWord;
     public RelativeLayout forwardLayout;
     public RelativeLayout backLayout;
+    public TextView boxName;
+
     private static Typeface mTypeface = null;
     public static final String DEFAULT="N/A";
 
@@ -138,6 +152,8 @@ public class GroundActivity extends Activity {
                 hintplusview.setVisibility(View.GONE);
                 hint3view.setVisibility(View.VISIBLE);
                 hintplusList.add(0, questions.get(currentQuestion));
+             //   boxName.setVisibility(View.INVISIBLE);
+              //  reward.setVisibility(View.VISIBLE);
 
             }
         });
@@ -168,12 +184,16 @@ public class GroundActivity extends Activity {
             box.setVisibility(View.VISIBLE);
             hintplusview.setVisibility(View.GONE);
             hint3view.setVisibility(View.INVISIBLE);
+           // reward.setVisibility(View.INVISIBLE);
+           // boxName.setVisibility(View.VISIBLE);
         } else {
             // if the user used the additional hint, make the hint visible
             if (hintplusList.contains(questions.get(currentQuestion))) {
                 box.setVisibility(View.INVISIBLE);
                 hintplusview.setVisibility(View.GONE);
                 hint3view.setVisibility(View.VISIBLE);
+             //   reward.setVisibility(View.VISIBLE);
+             //   boxName.setVisibility(View.INVISIBLE);
             }
 
             // if the user did not get the question right and did not view the addtional hint, just show the light bulb
@@ -181,6 +201,8 @@ public class GroundActivity extends Activity {
                 box.setVisibility(View.INVISIBLE);
                 hintplusview.setVisibility(View.VISIBLE);
                 hint3view.setVisibility(View.INVISIBLE);
+              //  reward.setVisibility(View.INVISIBLE);
+              //  boxName.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -290,7 +312,7 @@ public class GroundActivity extends Activity {
             Toast.makeText(this, "정답입니다", Toast.LENGTH_SHORT).show();
 
             // if the answer is correct update the answer list
-            answerList.add(0, questions.get(currentQuestion));
+            answerList.add(questions.get(currentQuestion));
 
             //If the answer is correct, move the question to the very front and display the questions yet to be solved.
 

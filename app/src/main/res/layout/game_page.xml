@@ -19,7 +19,6 @@
         android:id="@+id/level" />
 
 
-
     <RelativeLayout
         android:layout_width="45dp"
         android:layout_height="45dp"
@@ -100,7 +99,10 @@
             android:textSize="25dp"
             android:layout_centerHorizontal="true"
             android:textColor="#727272"
-            android:id="@+id/boxName"/>
+            android:id="@+id/boxName"
+            android:visibility="visible"/>
+
+
         <RelativeLayout
             android:layout_width="120dp"
             android:layout_height="60dp"
@@ -261,7 +263,7 @@
         android:layout_below="@+id/wordbox"
         android:layout_marginTop="25dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:id="@+id/AnswerButton"
         android:textColor="#FFFFFF"
         android:background="@drawable/check5"
@@ -276,7 +278,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/wordbox"
         android:layout_marginTop="25dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/check5"
         android:layout_marginLeft="30dp"
         android:clickable="true"
@@ -304,7 +306,7 @@
         android:layout_marginTop="25dp"
         android:layout_toLeftOf="@id/AnswerButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginRight="30dp"
         android:background="@drawable/check5"
         android:clickable="true"

@@ -29,4 +29,10 @@
 -dontwarn java.nio.file.Path
 -dontwarn java.nio.file.OpenOption
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+-dontwarn com.immersion.**
+-dontnote com.immersion.**
+# For communication with AdColony's WebView
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
+}
 

@@ -38,6 +38,7 @@ import android.view.View.OnKeyListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.HashSet;
 import android.preference.PreferenceManager;
 
 
@@ -47,9 +48,9 @@ public class Main6Activity extends GroundActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.game_page);
+        setContentView(R.layout.game_page_advanced);
         setStage();
-        Toast.makeText(this, "달인 등급으로 승급하셨습니다!", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "고수 등급으로 승급하셨습니다!", Toast.LENGTH_LONG).show();
         init();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         loadBanner();
@@ -82,21 +83,21 @@ public class Main6Activity extends GroundActivity {
     }
 
     public void init() {
-        questions_list = new String[]{"ㅂ□□ㄱ", "□□ㅂ", "ㅅㄱ", "ㅇㄱ□ㅇ□ㅈ", "□□ㅋ", "ㅁ□□", "ㅅㅁㅇ", "ㅅㅈ", "ㄸ□ㄱ", "□ㅈ□ㄴ"};
-        answers_list = new String[]{"배꼽시계", "도깨비", "수고", "일거수일투족", "오랑캐", "모퉁이", "속마음", "싫증", "띠동갑", "어제오늘"};
-        hint1_list = new String[]{"식사시간", "방망이", "땀", "동작", "야만", "구부러짐","떠보다", "물리다", "12살", "최근"};
-        hint2_list = new String[]{"배고픔", "뿔", "품", "하나하나", "전쟁","구석", "저울질", "염증", "같다","요사이"};
-        hint3_list = new String[]{"꼬르륵", "귀신", "애를 씀", "일거일동", "이민족", "모서리", "꿍꿍이", "권태", "나이", "내일"};
+        questions_list = new String[]{"ㅂㄷㄷ", "ㅅㅈ", "ㅍㅃㄹ", "ㅎㅅ", "ㄷㅂㅅ", "ㅇㅅㅁ", "ㅇㅍㅅㅍ", "ㄴㅎㅅ", "ㄷㅂㅂ", "ㄱㅌㅈㄹ"};
+        answers_list = new String[]{"밥도둑", "싫증", "파뿌리", "한숨", "돈방석", "입소문", "이판사판", "낙하산", "대부분", "교통정리"};
+        hint1_list = new String[]{"반찬", "물리다", "결혼", "근심", "부자", "화젯거리", "끝장", "인사", "거의","분쟁 해결"};
+        hint2_list = new String[]{"", "", "", "", "","", "", "", "", ""};
+        hint3_list = new String[]{"입맛", "권태", "백발", "안도의~", "앉다", "~을 타다", "사생결단", "사장", "십중팔구", "정리"};
         questions = new ArrayList<String>();
         answers = new ArrayList<String>();
         hint1 = new ArrayList<String>();
         hint2 = new ArrayList<String>();
         hint3 = new ArrayList<String>();
-        answerList = new ArrayList<String>();
+        answerList = new HashSet<String>();
         hintplusList = new ArrayList<String>();
-        message1 = new String ("축하합니다!"+"\n달인 단계를 통과하셨습니다.");
+        message1 = new String ("축하합니다!"+"\n고수 단계를 통과하셨습니다.");
         message2 = new String ("달인 단계에 도전!");
-        stage=new String ("level5");
+        stage=new String ("level6");
 
         //make array lists of all the answer list, hint plust list, questions and all the hints
         for (int index = 0; index < 10; index++) {
@@ -202,46 +203,47 @@ public class Main6Activity extends GroundActivity {
     public void setStage() {
 
         level=(TextView) findViewById(R.id.level);
-        level.setTextColor(getResources().getColor(R.color.lightgreen));
-        level.setText("달인 단계");
+        level.setTextColor(getResources().getColor(R.color.color6));
+        level.setText("고수 단계");
 
         answersCorrectLayout= (RelativeLayout) findViewById(R.id.answersCorrectLayout);
-        answersCorrectLayout.setBackgroundResource(R.drawable.check5);
+        answersCorrectLayout.setBackgroundResource(R.drawable.check6);
 
         answerText = (EditText) findViewById(R.id.AnswerText);
-        answerText.setBackgroundResource(R.drawable.edittext5);
+        answerText.setBackgroundResource(R.drawable.edittext6);
 
         questionView = (TextView) findViewById(R.id.QuestionTextView);
 
         wordbox = (RelativeLayout) findViewById(R.id.wordbox);
-        wordbox.setBackgroundResource(R.drawable.hintbox5);
+        wordbox.setBackgroundResource(R.drawable.hintbox6);
 
         hint1View = (TextView) findViewById(R.id.textView);
         textBar1 = (TextView) findViewById(R.id.textbar1);
-        textBar1.setBackgroundResource(R.drawable.border5);
+        textBar1.setBackgroundResource(R.drawable.border6);
 
         hint2View = (TextView) findViewById(R.id.textView2);
         textBar2 = (TextView) findViewById(R.id.textbar2);
-        textBar2.setBackgroundResource(R.drawable.border5);
+        textBar2.setBackgroundResource(R.drawable.border6);
 
         box = (RelativeLayout) findViewById(R.id.checkbox);
-        box.setBackgroundResource(R.drawable.check5);
+        box.setBackgroundResource(R.drawable.check6);
 
         hint3view = (TextView) findViewById(R.id.textView3);
-        hint3view.setBackgroundResource(R.drawable.hintbox5);
+        hint3view.setBackgroundResource(R.drawable.hintbox6);
 
         hintplusview = (RelativeLayout) findViewById(R.id.hintplusview);
-        hintplusview.setBackgroundResource(R.drawable.check5);
+        hintplusview.setBackgroundResource(R.drawable.check6);
 
         answerButton = (Button) findViewById(R.id.AnswerButton);
-        answerButton.setBackgroundResource(R.drawable.check5);
+        answerButton.setBackgroundResource(R.drawable.check6);
 
         forwardLayout=(RelativeLayout) findViewById(R.id.forwardLayout);
-        forwardLayout.setBackgroundResource(R.drawable.check5);
+        forwardLayout.setBackgroundResource(R.drawable.check6);
 
         backLayout=(RelativeLayout) findViewById((R.id.backLayout));
-        backLayout.setBackgroundResource(R.drawable.check5);
+        backLayout.setBackgroundResource(R.drawable.check6);
 
+        boxName=(TextView) findViewById(R.id.boxName);
 
         answersCorrect = (TextView) findViewById(R.id.answersCorrect);
         answersCorrectImage = (ImageView) findViewById(R.id.answersCorrectImage);
@@ -270,9 +272,9 @@ public class Main6Activity extends GroundActivity {
     //This method enables skip button
     public void enableSkip(){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String level5=preferences.getString("level5", DEFAULT);
-        if (level5!=DEFAULT) {
-            answersCorrect.setText("");
+        String level6=preferences.getString("level6", DEFAULT);
+        if (level6!=DEFAULT) {
+            answersCorrect.setVisibility(View.GONE);
             answersCorrectImage.setVisibility(View.VISIBLE);
             //When user presses the fire button, move to next level.
             answersCorrectButton.setOnClickListener(new View.OnClickListener() {

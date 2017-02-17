@@ -21,14 +21,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Main7Activity extends GroundActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.game_page);
+        setContentView(R.layout.game_page_advanced);
         setStage();
-        Toast.makeText(this, "초인 등급으로 승급하셨습니다!", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "달인 등급으로 승급하셨습니다!", Toast.LENGTH_LONG).show();
         init();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         loadBanner();
@@ -61,21 +62,21 @@ public class Main7Activity extends GroundActivity {
     }
 
     public void init() {
-        questions_list = new String[]{"ㄷㅈ", "ㄱ□ㄱ", "ㅁ□ㅅ", "□ㄱ□ㅈ", "□ㅇㄱ", "ㅇㅎㅇㅊ", "ㅁㄱㅅ", "□ㅂㅇ", "ㅁ□ㅅ", "ㄱㄱㄷ"};
-        answers_list = new String[]{"뒷짐", "곱빼기", "모르쇠", "시간문제", "초읽기", "육하원칙", "물귀신", "판박이", "무리수", "가격대"};
-        hint1_list = new String[]{"구경", "둘", "청문회", "당연한", "바둑", "6개","궁지", "같다", "욕심", "범위"};
-        hint2_list = new String[]{"남", "큰 하나", "기억상실", "결정됨", "급박함","기자", "공멸", "부자", "억지","시장"};
-        hint3_list = new String[]{"~지다", "자장면", "시치미", "ㅅㄱㅁㅈ", "ㅊㅇㄱ", "원칙", "~작전", "ㅍㅂㅇ", "ㅁㄹㅅ", "흥정"};
+        questions_list = new String[]{"ㄷㅈ", "ㅇㅁㅇ", "ㅎㄱㅅ", "ㅅㄱㅁㅈ", "ㅊㅇㄱ", "ㅇㅎㅇㅊ", "ㅁㄱㅅ", "ㅍㅂㅇ", "ㅅㅂㅅ", "ㄷㅇㄹ"};
+        answers_list = new String[]{"뒷짐", "알맹이", "흑기사", "시간문제", "초읽기", "육하원칙", "물귀신", "판박이", "승부수", "덩어리"};
+        hint1_list = new String[]{"구경", "핵심", "대신", "결정됨", "급박함", "6개","공멸", "닮다", "결정적", "뭉치"};
+        hint2_list = new String[]{"", "", "", "", "","", "", "", "", ""};
+        hint3_list = new String[]{"~지다", "껍질", "술자리", "사실상", "바둑", "기자", "~작전", "부자", "~ 두다", "심술~"};
         questions = new ArrayList<String>();
         answers = new ArrayList<String>();
         hint1 = new ArrayList<String>();
         hint2 = new ArrayList<String>();
         hint3 = new ArrayList<String>();
-        answerList = new ArrayList<String>();
+        answerList = new HashSet<String>();
         hintplusList = new ArrayList<String>();
-        message1 = new String ("당신은 천재입니다!" + "\n다음엔 더 어렵고 더 재밌는 문제로 찾아뵙겠습니다.");
-        message2 = new String ("나가기!");
-        stage=new String ("level6");
+        message1 = new String ("축하합니다!"+"\n달인 단계를 통과하셨습니다.");
+        message2 = new String ("초인 단계에 도전!");
+        stage=new String ("level7");
 
         //make array lists of all the answer list, hint plust list, questions and all the hints
         for (int index = 0; index < 10; index++) {
@@ -181,46 +182,47 @@ public class Main7Activity extends GroundActivity {
     public void setStage() {
 
         level=(TextView) findViewById(R.id.level);
-        level.setTextColor(getResources().getColor(R.color.bluegrey));
-        level.setText("초인 단계");
+        level.setTextColor(getResources().getColor(R.color.color7));
+        level.setText("달인 단계");
 
         answersCorrectLayout= (RelativeLayout) findViewById(R.id.answersCorrectLayout);
-        answersCorrectLayout.setBackgroundResource(R.drawable.check6);
+        answersCorrectLayout.setBackgroundResource(R.drawable.check7);
 
         answerText = (EditText) findViewById(R.id.AnswerText);
-        answerText.setBackgroundResource(R.drawable.edittext6);
+        answerText.setBackgroundResource(R.drawable.edittext7);
 
         questionView = (TextView) findViewById(R.id.QuestionTextView);
 
         wordbox = (RelativeLayout) findViewById(R.id.wordbox);
-        wordbox.setBackgroundResource(R.drawable.hintbox6);
+        wordbox.setBackgroundResource(R.drawable.hintbox7);
 
         hint1View = (TextView) findViewById(R.id.textView);
         textBar1 = (TextView) findViewById(R.id.textbar1);
-        textBar1.setBackgroundResource(R.drawable.border6);
+        textBar1.setBackgroundResource(R.drawable.border7);
 
         hint2View = (TextView) findViewById(R.id.textView2);
         textBar2 = (TextView) findViewById(R.id.textbar2);
-        textBar2.setBackgroundResource(R.drawable.border6);
+        textBar2.setBackgroundResource(R.drawable.border4);
 
         box = (RelativeLayout) findViewById(R.id.checkbox);
-        box.setBackgroundResource(R.drawable.check6);
+        box.setBackgroundResource(R.drawable.check7);
 
         hint3view = (TextView) findViewById(R.id.textView3);
-        hint3view.setBackgroundResource(R.drawable.hintbox6);
+        hint3view.setBackgroundResource(R.drawable.hintbox7);
 
         hintplusview = (RelativeLayout) findViewById(R.id.hintplusview);
-        hintplusview.setBackgroundResource(R.drawable.check6);
+        hintplusview.setBackgroundResource(R.drawable.check7);
 
         answerButton = (Button) findViewById(R.id.AnswerButton);
-        answerButton.setBackgroundResource(R.drawable.check6);
+        answerButton.setBackgroundResource(R.drawable.check7);
 
         forwardLayout=(RelativeLayout) findViewById(R.id.forwardLayout);
-        forwardLayout.setBackgroundResource(R.drawable.check6);
+        forwardLayout.setBackgroundResource(R.drawable.check7);
 
         backLayout=(RelativeLayout) findViewById((R.id.backLayout));
-        backLayout.setBackgroundResource(R.drawable.check6);
+        backLayout.setBackgroundResource(R.drawable.check7);
 
+        boxName=(TextView) findViewById(R.id.boxName);
 
         answersCorrect = (TextView) findViewById(R.id.answersCorrect);
         answersCorrectImage = (ImageView) findViewById(R.id.answersCorrectImage);
@@ -235,10 +237,8 @@ public class Main7Activity extends GroundActivity {
     //This method starts the next level
     @Override
     public void startNextLevel() {
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        Intent intent2 = new Intent(this, Main8Activity.class);
+        startActivity(intent2);
     }
 
     //This method starts the previous level
@@ -251,8 +251,8 @@ public class Main7Activity extends GroundActivity {
     //This method enables skip button
     public void enableSkip(){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String level1=preferences.getString("level1", DEFAULT);
-        if (level1!=DEFAULT) {
+        String level7=preferences.getString("level7", DEFAULT);
+        if (level7!=DEFAULT) {
             answersCorrect.setVisibility(View.GONE);
             answersCorrectImage.setVisibility(View.VISIBLE);
             //When user presses the fire button, move to next level.

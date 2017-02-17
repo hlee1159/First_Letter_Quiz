@@ -38,6 +38,7 @@ import android.view.View.OnKeyListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.HashSet;
 import android.preference.PreferenceManager;
 
 
@@ -49,7 +50,7 @@ public class Main4Activity extends GroundActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_page);
         setStage();
-        Toast.makeText(this, "우수자 등급으로 승급하셨습니다!", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "최우수 등급으로 승급하셨습니다!", Toast.LENGTH_LONG).show();
         init();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         loadBanner();
@@ -82,21 +83,21 @@ public class Main4Activity extends GroundActivity {
     }
 
     public void init() {
-        questions_list = new String[]{"ㅁㄱㅍ", "ㅁㅍㅅ", "ㅅㅅㅇ", "ㅍㄴㄱ", "ㄱㄷㄹㅇ", "ㄱㄹ", "ㄴㄷㅇ", "ㅈㅅㄱ", "ㄴㅂㄹ", "ㅁㄱ"};
-        answers_list = new String[]{"물거품", "말풍선", "속삭임", "풋내기", "겨드랑이", "그릇", "나들이", "전성기", "날벼락", "마감"};
-        hint1_list = new String[]{"헛수고", "만화", "소곤소곤", "서투름", "팔", "밥", "김밥","한창", "불호령", "매듭"};
-        hint2_list = new String[]{"사라지다", "대사","은밀히", "햇병아리", "오목한", "비우다","바깥", "정점", "불행", "마무리"};
-        hint3_list = new String[]{"인어공주", "말","속닥속닥", "초보자", "냄새", "설거지", "돗자리", "황금시대", "마른하늘", "기한"};
+        questions_list = new String[]{"ㄱㅃㄱ", "ㅅㅍㄱ", "ㄱㄴ", "ㅁㅆ", "ㄱㅂ", "ㅈㅁ□□", "ㅈㅅ", "ㅁ□ㄱ", "ㅈ□ㅅ", "ㅂㄹ"};
+        answers_list = new String[]{"곱빼기", "상품권", "그늘", "말썽", "고비", "주먹구구", "질서", "맛보기", "조바심", "버릇"};
+        hint1_list = new String[]{"한 그릇", "교환", "어둠", "골칫거리", "고개", "대충","정리", "시험 삼아", "애", "반복"};
+        hint2_list = new String[]{"두 그릇", "선물", "휴식", "물의", "위기","어림짐작", "차례", "조금", "안달복달", "굳다"};
+        hint3_list = new String[]{"짜장면", "백화점", "나무", "~꾸러기", "넘기다", "~식", "~의식", "시식", "조마조마", "습관"};
         questions = new ArrayList<String>();
         answers = new ArrayList<String>();
         hint1 = new ArrayList<String>();
         hint2 = new ArrayList<String>();
         hint3 = new ArrayList<String>();
-        answerList = new ArrayList<String>();
+        answerList = new HashSet<String>();
         hintplusList = new ArrayList<String>();
-        message1 = new String ("축하합니다!"+"\n우수자 단계를 통과하셨습니다.");
+        message1 = new String ("축하합니다!"+"\n최우수 단계를 통과하셨습니다.");
         message2 = new String ("영웅 단계에 도전!");
-        stage=new String ("level3");
+        stage=new String ("level4");
 
         //make array lists of all the answer list, hint plust list, questions and all the hints
         for (int index = 0; index < 10; index++) {
@@ -202,46 +203,47 @@ public class Main4Activity extends GroundActivity {
     public void setStage() {
 
         level=(TextView) findViewById(R.id.level);
-        level.setTextColor(getResources().getColor(R.color.indigo));
-        level.setText("우수자 단계");
+        level.setTextColor(getResources().getColor(R.color.color4));
+        level.setText("최우수 단계");
 
         answersCorrectLayout= (RelativeLayout) findViewById(R.id.answersCorrectLayout);
-        answersCorrectLayout.setBackgroundResource(R.drawable.check3);
+        answersCorrectLayout.setBackgroundResource(R.drawable.check4);
 
         answerText = (EditText) findViewById(R.id.AnswerText);
-        answerText.setBackgroundResource(R.drawable.edittext3);
+        answerText.setBackgroundResource(R.drawable.edittext4);
 
         questionView = (TextView) findViewById(R.id.QuestionTextView);
 
         wordbox = (RelativeLayout) findViewById(R.id.wordbox);
-        wordbox.setBackgroundResource(R.drawable.hintbox3);
+        wordbox.setBackgroundResource(R.drawable.hintbox4);
 
         hint1View = (TextView) findViewById(R.id.textView);
         textBar1 = (TextView) findViewById(R.id.textbar1);
-        textBar1.setBackgroundResource(R.drawable.border3);
+        textBar1.setBackgroundResource(R.drawable.border4);
 
         hint2View = (TextView) findViewById(R.id.textView2);
         textBar2 = (TextView) findViewById(R.id.textbar2);
-        textBar2.setBackgroundResource(R.drawable.border3);
+        textBar2.setBackgroundResource(R.drawable.border4);
 
         box = (RelativeLayout) findViewById(R.id.checkbox);
-        box.setBackgroundResource(R.drawable.check3);
+        box.setBackgroundResource(R.drawable.check4);
 
         hint3view = (TextView) findViewById(R.id.textView3);
-        hint3view.setBackgroundResource(R.drawable.hintbox3);
+        hint3view.setBackgroundResource(R.drawable.hintbox4);
 
         hintplusview = (RelativeLayout) findViewById(R.id.hintplusview);
-        hintplusview.setBackgroundResource(R.drawable.check3);
+        hintplusview.setBackgroundResource(R.drawable.check4);
 
         answerButton = (Button) findViewById(R.id.AnswerButton);
-        answerButton.setBackgroundResource(R.drawable.check3);
+        answerButton.setBackgroundResource(R.drawable.check4);
 
         forwardLayout=(RelativeLayout) findViewById(R.id.forwardLayout);
-        forwardLayout.setBackgroundResource(R.drawable.check3);
+        forwardLayout.setBackgroundResource(R.drawable.check4);
 
         backLayout=(RelativeLayout) findViewById((R.id.backLayout));
-        backLayout.setBackgroundResource(R.drawable.check3);
+        backLayout.setBackgroundResource(R.drawable.check4);
 
+        boxName=(TextView) findViewById(R.id.boxName);
 
         answersCorrect = (TextView) findViewById(R.id.answersCorrect);
         answersCorrectImage = (ImageView) findViewById(R.id.answersCorrectImage);
@@ -270,9 +272,9 @@ public class Main4Activity extends GroundActivity {
     //This method enables skip button
     public void enableSkip(){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String level3=preferences.getString("level3", DEFAULT);
-        if (level3!=DEFAULT) {
-            answersCorrect.setText("");
+        String level4=preferences.getString("level4", DEFAULT);
+        if (level4!=DEFAULT) {
+            answersCorrect.setVisibility(View.GONE);
             answersCorrectImage.setVisibility(View.VISIBLE);
             //When user presses the fire button, move to next level.
             answersCorrectButton.setOnClickListener(new View.OnClickListener() {
